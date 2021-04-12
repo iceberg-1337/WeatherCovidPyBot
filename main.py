@@ -32,3 +32,23 @@ def welcome(message):
     message.from_user, bot.get_me()),
     parse_mode='html', reply_markup=markup)
     bot.register_next_step_handler(message, action)
+
+
+def action(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+    btn1 = types.KeyboardButton('Во всём мире')
+    btn2 = types.KeyboardButton('Украина')
+    btn3 = types.KeyboardButton('Россия')
+    btn4 = types.KeyboardButton('Беларусь')
+    markup.add(btn1, btn2, btn3, btn4)
+
+    if message.chat.type == 'private':
+        if message.text == '☁ Узнать погоду ☀':
+            bot.send_message(message.from_user.id, 'в каком городе')
+            bot.register_next_step_handler(message, get_weather)
+        elif message.text == '🦠 Узнать про Covid-19 🦠':
+            send_message = f'Чтобы узнать данные напишите страну\n или выберите страну из списка'
+            bot.send_message(message.from_user.id, send_message, parse_mode='html', reply_markup=markup)
+            bot.register_next_step_handler(message, get_covid)
+        else:
+            bot.send_message(message.chat.id, 'Я не знаю что ответить 😢')
