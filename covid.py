@@ -1,8 +1,8 @@
 import telebot
 import COVID19Py
+from telebot import types
 
 covid19 = COVID19Py.COVID19()
-
 
 bot = telebot.TeleBot('1655397111:AAGOqLwVAicRXDlvic8nYvJ9gSPhBgDV1xc')
 
@@ -37,5 +37,8 @@ def get_covid(message):
                         f"Заболевших: </b>{location[0]['latest']['confirmed']:,}\n<b>Сметрей: </b>" \
                         f"{location[0]['latest']['deaths']:,}"
 
+    markup = types.InlineKeyboardMarkup()
+    btn1 = types.InlineKeyboardButton("Главное меню", callback_data="back")
+    markup.add(btn1)
 
-    bot.send_message(message.chat.id, final_message, parse_mode='html')
+    bot.send_message(message.chat.id, final_message, parse_mode='html', reply_markup=markup)

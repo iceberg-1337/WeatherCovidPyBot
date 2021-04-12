@@ -1,8 +1,10 @@
 import pyowm
 from pyowm.utils.config import get_default_config
 import telebot
+from telebot import types
 
 bot = telebot.TeleBot('1655397111:AAGOqLwVAicRXDlvic8nYvJ9gSPhBgDV1xc')
+
 
 def get_weather(message):
     config_dict = get_default_config()
@@ -17,4 +19,8 @@ def get_weather(message):
     answer = 'В городе ' + message.text + ' сейчас ' + w.detailed_status + '\n'
     answer += 'Температура в районе ' + str(temp) + '\n'
 
-    bot.send_message(message.chat.id, answer)
+    markup = types.InlineKeyboardMarkup()
+    btn1 = types.InlineKeyboardButton("Главное меню", callback_data="back")
+    markup.add(btn1)
+
+    bot.send_message(message.chat.id, answer, reply_markup = markup)
