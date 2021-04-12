@@ -24,7 +24,8 @@ def welcome(message):
 
     markup.add(item1, item2)
 
-
+    sti = open('static/AnimatedSticker.tgs', 'rb')
+    bot.send_sticker(message.chat.id, sti)
 
     bot.send_message(message.chat.id,
     "Добро пожаловать, {0.first_name}!\nЯ - <b>{1.first_name}</b>, бот созданный чтобы быть подопытным кроликом. \n что желаете сделать".format(
