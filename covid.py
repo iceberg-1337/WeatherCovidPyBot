@@ -8,6 +8,11 @@ bot = telebot.TeleBot('1655397111:AAGOqLwVAicRXDlvic8nYvJ9gSPhBgDV1xc')
 
 
 def get_covid(message):
+    markup = types.InlineKeyboardMarkup()
+    btn1 = types.InlineKeyboardButton("Главное меню", callback_data="back")
+    btn2 = types.InlineKeyboardButton("еще раз", callback_data="again_covid")
+    markup.add(btn1, btn2)
+
     final_message = ""
     get_message_bot = message.text.strip().lower()
     if get_message_bot == "сша":
@@ -28,6 +33,8 @@ def get_covid(message):
         location = covid19.getLocationByCountryCode("DE")
     elif get_message_bot == "япония":
         location = covid19.getLocationByCountryCode("JP")
+    else:
+        final_message = 'я не знаю такой страны'
 
     if final_message == "":
         date = location[0]['last_updated'].split("T")
@@ -36,9 +43,5 @@ def get_covid(message):
                         f"Последнее обновление: {date[0]} {time[0]}\nПоследние данные:\n<b>" \
                         f"Заболевших: </b>{location[0]['latest']['confirmed']:,}\n<b>Сметрей: </b>" \
                         f"{location[0]['latest']['deaths']:,}"
-
-    markup = types.InlineKeyboardMarkup()
-    btn1 = types.InlineKeyboardButton("Главное меню", callback_data="back")
-    markup.add(btn1)
 
     bot.send_message(message.chat.id, final_message, parse_mode='html', reply_markup=markup)
