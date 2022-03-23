@@ -3,7 +3,7 @@ from telebot import types
 from wearher import get_weather
 from covid import get_covid
 
-bot = telebot.TeleBot('1655397111:AAGOqLwVAicRXDlvic8nYvJ9gSPhBgDV1xc')  # token
+bot = telebot.TeleBot('Token')  # token
 
 
 @bot.message_handler(commands=['start'])
