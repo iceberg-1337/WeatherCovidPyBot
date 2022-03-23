@@ -4,7 +4,7 @@ from telebot import types
 
 covid19 = COVID19Py.COVID19()
 
-bot = telebot.TeleBot('1655397111:AAGOqLwVAicRXDlvic8nYvJ9gSPhBgDV1xc')
+bot = telebot.TeleBot('Token')
 
 
 def get_covid(message):
